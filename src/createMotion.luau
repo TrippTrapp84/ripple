@@ -8,6 +8,7 @@ local tweenSolver = require(script.Parent.solvers.tween)
 local intermediate = require(script.Parent.utils.intermediate)
 local assign = require(script.Parent.utils.assign)
 local merge = require(script.Parent.utils.merge)
+local signal = require(script.Parent.utils.signal)
 
 local defaults = {
 	heartbeat = RunService.Heartbeat,
@@ -28,6 +29,8 @@ local function createMotion<T>(initialValue: T, options: types.MotionOptions?): 
 	local connection: RBXScriptConnection?
 	local wasComplete = false
 	local lastCompleteValue
+
+	local targetChanged = signal.new()
 
 	for key, value in intermediate.to(initialValue) do
 		motionState[key] = {
@@ -180,6 +183,8 @@ local function createMotion<T>(initialValue: T, options: types.MotionOptions?): 
 				motionSolvers[key] = solver
 			end
 		end
+
+		targetChanged.Fire()
 	end
 
 	local function immediate(self, value)
@@ -278,6 +283,7 @@ local function createMotion<T>(initialValue: T, options: types.MotionOptions?): 
 
 	local motion: types.Motion<T> = {
 		state = motionState,
+		onTargetChanged = targetChanged,
 		start = start,
 		stop = stop,
 		get = get,

@@ -1,3 +1,5 @@
+import Signal from "./utils/signal";
+
 type Cleanup = () => void;
 
 export = Ripple;
@@ -78,6 +80,7 @@ declare namespace Ripple {
 declare namespace Ripple {
 	interface Motion<T extends MotionGoal = number> {
 		readonly state: MapGoalTo<T, MotionState>;
+		readonly onTargetChanged: Signal<void>;
 		start(): Cleanup;
 		stop(): void;
 		get(): T;
