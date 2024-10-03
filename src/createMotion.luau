@@ -161,6 +161,7 @@ local function createMotion<T>(initialValue: T, options: types.MotionOptions?): 
 				end
 			end
 
+			targetChanged.Fire()
 			return
 		end
 
