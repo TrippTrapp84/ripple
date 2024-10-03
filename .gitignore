@@ -4,7 +4,6 @@
 /DevPackages
 
 # Project output
-/out
 /include
 *.tsbuildinfo
 *.rbxl
