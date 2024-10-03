@@ -161,7 +161,7 @@ local function createMotion<T>(initialValue: T, options: types.MotionOptions?): 
 				end
 			end
 
-			targetChanged.Fire()
+			targetChanged:Fire()
 			return
 		end
 
@@ -185,7 +185,7 @@ local function createMotion<T>(initialValue: T, options: types.MotionOptions?): 
 			end
 		end
 
-		targetChanged.Fire()
+		targetChanged:Fire()
 	end
 
 	local function immediate(self, value)
